@@ -31,16 +31,26 @@ class ApiController extends Controller
         }
     }
 
+    protected function respondWithSuccess($data)
+    {
+        return $this->respond($data);
+    }
 
-    public function respondNotFound($message = 'Not found')
+    protected function respondNotFound($message = 'Not found')
     {
         return $this->setStatusCode(ApiResponse::HTTP_NOT_FOUND)
             ->respondWithError($message);
     }
 
-    public function respondInternalError($message = 'Internal Error Server')
+    protected function respondInternalError($message = 'Internal Error Server')
     {
         return $this->setStatusCode(ApiResponse::HTTP_INTERNAL_SERVER_ERROR)
+            ->respondWithError($message);
+    }
+
+    protected function respondUnauthorized($message)
+    {
+        return $this->setStatusCode(ApiResponse::HTTP_UNAUTHORIZED)
             ->respondWithError($message);
     }
 

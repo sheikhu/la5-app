@@ -11,8 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('auth', 'Auth\ApiAuthController@authenticate');
+
+Route::group(['namespace' => 'Api'/*, 'middleware' => 'api.auth'*/], function() {
+    Route::resource('users', UsersController::class);
+    Route::resource('members', MembersController::class);
 });
 
 
